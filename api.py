@@ -1,3 +1,16 @@
+from langchain.docstore.document import Document as OriginalDocument
+
+class PatchedDocument(OriginalDocument):
+    def __setstate__(self, state):
+        state.pop('__fields_set__', None)
+        self.__dict__.update(state)
+
+# Replace reference in langchain
+import langchain.docstore.document
+langchain.docstore.document.Document = PatchedDocument
+
+
+
 import os
 import uvicorn
 import json
@@ -10,16 +23,6 @@ from langchain_community.vectorstores import FAISS
 #from langchain_huggingface import HuggingFaceEmbeddings
 import google.generativeai as genai
 from langchain_community.embeddings import HuggingFaceEmbeddings
-
-
-from langchain.docstore.document import Document
-
-def _doc_setstate(self, state):
-    if "__fields_set__" in state:
-        del state["__fields_set__"]
-    object.__setattr__(self, "__dict__", state)
-
-Document.__setstate__ = _doc_setstate
 
 
 # Load environment variables
