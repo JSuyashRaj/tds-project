@@ -67,10 +67,11 @@ def initialize_components():
         
         print(" Setting up direct Gemini...")
         api_key = os.getenv("GOOGLE_API_KEY")
+        print("🔑 Loaded API key:", api_key[:10], "...", "Length:", len(api_key))
+
         if not api_key:
             raise ValueError("GOOGLE_API_KEY not found in .env file")
-        
-        print(f" Using Gemini API key: {api_key[:10]}...")
+
         
         # Configure Gemini
         genai.configure(api_key=api_key)
@@ -85,14 +86,15 @@ def initialize_components():
         
         for model_name in model_names:
             try:
+                print(f"🚀 Trying Gemini model: {model_name}")
                 gemini_model = genai.GenerativeModel(model_name)
-                # Test the model
                 test_response = gemini_model.generate_content("Hello")
-                print(f" Successfully initialized: {model_name}")
+                print(f"✅ Successfully initialized: {model_name}")
                 break
             except Exception as e:
-                print(f" Failed to initialize {model_name}: {e}")
+                print(f"❌ Gemini init failed for {model_name}:", repr(e))
                 continue
+
         
         if gemini_model is None:
             raise ValueError("Could not initialize any Gemini model")
