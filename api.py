@@ -2,12 +2,12 @@ from langchain.docstore.document import Document as OriginalDocument
 
 class PatchedDocument(OriginalDocument):
     def __setstate__(self, state):
-        state.pop('__fields_set__', None)
+        state.pop("__fields_set__", None)
         self.__dict__.update(state)
 
-# Replace reference in langchain
 import langchain.docstore.document
 langchain.docstore.document.Document = PatchedDocument
+
 
 
 
