@@ -1,6 +1,6 @@
-# requirements.txt - Updated for Gemini support
-setuptools>=70.0.0
-pip>=24.0
+# requirements.txt - Updated for Python 3.11 compatibility
+setuptools>=68.0.0
+pip>=23.0
 wheel>=0.37.0
 
 fastapi==0.104.1
@@ -21,6 +21,17 @@ langchain-community==0.0.10
 langchain-google-genai==0.0.6
 google-generativeai==0.3.2
 
+# Vector DB
+faiss-cpu==1.7.4
+
+# HuggingFace
+transformers==4.36.0
+sentence-transformers==2.2.2
+torch==2.1.0
+
+# HTTP client
+httpx==0.25.2
+requests==2.31.0
 # Vector DB
 faiss-cpu==1.7.4
 
