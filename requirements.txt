@@ -19,7 +19,7 @@ langchain==0.1.17
 langchain-core==0.1.52
 langchain-community==0.0.38
 langchain-google-genai==0.0.8
-langchain-huggingface==0.2.0
+#langchain-huggingface==0.2.0
 
 # HuggingFace Embeddings
 sentence-transformers==2.6.1
