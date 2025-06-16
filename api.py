@@ -12,6 +12,18 @@ import google.generativeai as genai
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
+from langchain.docstore.document import Document as _LC_Doc
+
+def _doc_setstate(self, state):
+    if "__fields_set__" in state:
+        del state["__fields_set__"]
+    object.__setattr__(self, "__dict__", state)
+
+_LC_Doc.__setstate__ = _doc_setstate
+
+
+
+
 # Load environment variables
 load_dotenv()
 
