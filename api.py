@@ -12,16 +12,14 @@ import google.generativeai as genai
 from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
-from langchain.docstore.document import Document as _LC_Doc
+from langchain.docstore.document import Document
 
 def _doc_setstate(self, state):
     if "__fields_set__" in state:
         del state["__fields_set__"]
     object.__setattr__(self, "__dict__", state)
 
-_LC_Doc.__setstate__ = _doc_setstate
-
-
+Document.__setstate__ = _doc_setstate
 
 
 # Load environment variables
@@ -60,9 +58,9 @@ def initialize_components():
         vectordb = FAISS.load_local(
             "embeddings/faiss_index",
             embeddings,
-            allow_dangerous_deserialization=True,
-            _embedding_store_doc_cls=Document  # <-- ensures metadata is restored
+            allow_dangerous_deserialization=True
         )
+
         
         print(" Setting up direct Gemini...")
         api_key = os.getenv("GOOGLE_API_KEY")
