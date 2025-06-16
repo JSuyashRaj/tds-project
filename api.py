@@ -53,13 +53,15 @@ def initialize_components():
     if vectordb is None:
         print(" Loading embeddings...")
         embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-MiniLM-L3-v2")
-
         
         print(" Loading FAISS index...")
+        from langchain.docstore.document import Document
+
         vectordb = FAISS.load_local(
-            "embeddings/faiss_index", 
-            embeddings, 
-            allow_dangerous_deserialization=True
+            "embeddings/faiss_index",
+            embeddings,
+            allow_dangerous_deserialization=True,
+            _embedding_store_doc_cls=Document  # <-- ensures metadata is restored
         )
         
         print(" Setting up direct Gemini...")
