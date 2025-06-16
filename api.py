@@ -1,14 +1,12 @@
-from langchain.docstore.document import Document as OriginalDocument
+from langchain.docstore import document
 
-class PatchedDocument(OriginalDocument):
+class PatchedDocument(document.Document):
     def __setstate__(self, state):
         state.pop("__fields_set__", None)
         self.__dict__.update(state)
 
-import langchain.docstore.document
-langchain.docstore.document.Document = PatchedDocument
-
-
+# Forcefully patch langchain's internal reference
+document.Document = PatchedDocument
 
 
 import os
