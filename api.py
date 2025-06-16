@@ -40,7 +40,8 @@ def initialize_components():
     
     if vectordb is None:
         print(" Loading embeddings...")
-        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/paraphrase-MiniLM-L3-v2")
+
         
         print(" Loading FAISS index...")
         vectordb = FAISS.load_local(
